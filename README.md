@@ -1,0 +1,1 @@
+# Solicitatie-Quality-Guard
