@@ -5,9 +5,13 @@ const port = 3000
 let qualityGuardAPI = new qualityGuardApi(process.env.KEY)
 
 
-app.get('/getQualityGuardRecipes', async (req, res) => {
-    let data = await qualityGuardAPI.GetAllRecepies()
-    console.log(data)
+app.get('/getQualityGuardRecipes', (req, res) => {
+    let data = qualityGuardAPI.GetAllRecepies()
+    res.send(data)
+})
+
+app.get('/getQualityGuardRecipes', (req, res) => {
+    let data = qualityGuardAPI.GetIngredients(req.body.recipeId)
     res.send(data)
 })
 
