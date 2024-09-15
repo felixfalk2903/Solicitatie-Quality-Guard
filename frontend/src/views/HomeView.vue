@@ -12,8 +12,6 @@
 import { mapGetters } from 'vuex';
 import router from '@/router';
 
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "HomeView",
@@ -40,7 +38,7 @@ export default {
   methods: {
     itemProps(recipe) {
       return {
-        title: this.pagination + " " + recipe.name["nl-BE"],
+        title: recipe.name["nl-BE"],
         value: recipe.id
       }
     }
