@@ -14,7 +14,6 @@ initDB()
 app.get('/getQualityGuardRecipes', async (req, res) => {
     //get data from database for quick retreaval and check if local data still matches incoming data
     let dataJsonDB = await JsonDB.read()
-    console.log(dataJsonDB)
     res.send(dataJsonDB)
     checkIfThereAreNewRecepies(dataJsonDB)
 })
