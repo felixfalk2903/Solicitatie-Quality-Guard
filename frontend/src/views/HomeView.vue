@@ -2,7 +2,7 @@
   <div class="home">
     <h1 class="title">Quality Guard interview test</h1>
     <div class="container">
-      <v-combobox v-model="selected" multiple return-object @click="comboboxChanged" class="select" label="Select recipe"
+      <v-combobox v-model="selected" multiple return-object  class="select" label="Select recipe"
         :item-props="itemProps" :items="recipes"></v-combobox>
     </div>
   </div>
@@ -32,16 +32,15 @@ export default {
     selected(){
       this.$store.commit("change_currentIdRecipe", this.selected[0].id)
       this.$store.dispatch("GetSpecificRecipe")
+      //No right where provided to retrive allergen information
+      // this.$store.dispatch("GetAlergensForRecipe")
       router.push("/ingredients")
     }
   },
   methods: {
-    comboboxChanged() {
-      console.log(this.selected[0].id)
-    },
     itemProps(recipe) {
       return {
-        title: recipe.name["nl-BE"],
+        title: this.pagination + " " + recipe.name["nl-BE"],
         value: recipe.id
       }
     }

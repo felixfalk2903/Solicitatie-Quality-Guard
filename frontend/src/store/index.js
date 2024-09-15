@@ -26,21 +26,24 @@ export default createStore({
       "id": 23,
       "plu": "",
       "name": {
-          "nl-BE": "Volkoren Brood",
-          "de-DE": "",
-          "en-GB": "",
-          "fr-FR": ""
+        "nl-BE": "Volkoren Brood",
+        "de-DE": "",
+        "en-GB": "",
+        "fr-FR": ""
       },
       "recipeCategory": {
-          "nl-BE": "Barbecuevlees",
-          "de-DE": "Grill fleisch",
-          "en-GB": "Barbecue meat",
-          "fr-FR": "Viande barbecue"
+        "nl-BE": "Barbecuevlees",
+        "de-DE": "Grill fleisch",
+        "en-GB": "Barbecue meat",
+        "fr-FR": "Viande barbecue"
       },
       "lastModified": "2024-08-01 17:38:24.0",
       "active": true,
       "validated": true
-  },],currentIdRecipe: 0,currentRecipe:{}
+    },],
+    currentIdRecipe: 0,
+    currentRecipe: {},
+    allergensPerRecipe: []
   },
   getters: {
     recipes(state) {
@@ -50,7 +53,10 @@ export default createStore({
       console.log(state.currentRecipe)
       return state.currentRecipe
     },
-    currentIdRecipe(state){
+    currentIdRecipe(state) {
+      return state.currentIdRecipe
+    },
+    allergensPerRecipe(state){
       return state.currentIdRecipe
     }
   },
@@ -58,11 +64,14 @@ export default createStore({
     change_recipes(state, payload) {
       state.recipes = payload
     },
-    change_currentRecipe(state,payload){
+    change_currentRecipe(state, payload) {
       state.currentRecipe = payload
     },
-    change_currentIdRecipe(state,payload){
+    change_currentIdRecipe(state, payload) {
       state.currentIdRecipe = payload
+    },
+    change_allergensPerRecipe(state,payload){
+      state.allergensPerRecipe = payload
     }
   },
   actions: {
@@ -72,20 +81,35 @@ export default createStore({
         url: 'http://localhost:3000/getQualityGuardRecipes'
       })
         .then((response) => {
+          console.log(response.data)
           commit('change_recipes', response.data)
         });
     },
 
-    GetSpecificRecipe({ commit,state }) {
+    GetSpecificRecipe({ commit, state }) {
       axios({
         method: 'get',
         url: `http://localhost:3000/getQualityGuardRecipeById/${state.currentIdRecipe}`
       })
         .then((response) => {
-          console.log(response.data)
           commit('change_currentRecipe', response.data)
         });
-    }
+    },
+    //No right where provided to retrive allergen information
+    GetAlergensForRecipe({ state }) {
+      state.currentRecipe.retailproducts.forEach(element => {
+        axios({
+          method: 'get',
+          url: `http://localhost:3000/getQualityGuardAllergensById/${element.retailProduct.id}`
+        })
+          .then((response) => {
+            console.log(response.data)
+          });
+      });
+      
+    },
   },
+  
+
   modules: {},
 });
