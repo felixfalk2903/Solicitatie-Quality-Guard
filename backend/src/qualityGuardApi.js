@@ -33,6 +33,19 @@ class qualityGuardAPI {
             });
         })
     }
+    GetAlergies(retailProductId){
+        return new Promise((resolve,reject)=>{
+            axios({
+                method: 'get',
+                url: this.baseApiEndpoint + `/api/RecipeInfo/retailproducts/${retailProductId}/allergens`,
+                headers: { "Qguard-API-Key": this.key },
+            }).then(function (response) {
+                resolve(response.data) 
+            }).catch((err)=>{
+                reject(err)
+            });
+        })
+    }
 
 }
 
