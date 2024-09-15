@@ -33,6 +33,7 @@ class qualityGuardAPI {
             });
         })
     }
+    //No right where provided to retrive allergen information
     GetAlergies(retailProductId){
         return new Promise((resolve,reject)=>{
             axios({
