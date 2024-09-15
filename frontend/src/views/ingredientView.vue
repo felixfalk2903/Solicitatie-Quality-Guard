@@ -4,6 +4,7 @@
         <v-card class="v-card" v-for="(ingredient) in currentRecipe.retailproducts" :key="ingredient" width="300px">
             {{ ingredient.name["nl-BE"]}}
         </v-card>
+        <h1>Alergies</h1>
     </div>
 </template>
 

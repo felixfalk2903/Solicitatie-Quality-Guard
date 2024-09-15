@@ -5,7 +5,6 @@
       <v-combobox v-model="selected" multiple return-object @click="comboboxChanged" class="select" label="Select recipe"
         :item-props="itemProps" :items="recipes"></v-combobox>
     </div>
-
   </div>
 </template>
 
