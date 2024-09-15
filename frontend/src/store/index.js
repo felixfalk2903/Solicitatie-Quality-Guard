@@ -40,17 +40,29 @@ export default createStore({
       "lastModified": "2024-08-01 17:38:24.0",
       "active": true,
       "validated": true
-  },]
+  },],currentIdRecipe: 0,currentRecipe:{}
   },
   getters: {
     recipes(state) {
-      console.log(state.recipes)
       return state.recipes
+    },
+    currentRecipe(state) {
+      console.log(state.currentRecipe)
+      return state.currentRecipe
+    },
+    currentIdRecipe(state){
+      return state.currentIdRecipe
     }
   },
   mutations: {
     change_recipes(state, payload) {
       state.recipes = payload
+    },
+    change_currentRecipe(state,payload){
+      state.currentRecipe = payload
+    },
+    change_currentIdRecipe(state,payload){
+      state.currentIdRecipe = payload
     }
   },
   actions: {
@@ -60,9 +72,20 @@ export default createStore({
         url: 'http://localhost:3000/getQualityGuardRecipes'
       })
         .then((response) => {
-          console.log(response.data.length)
           commit('change_recipes', response.data)
         });
     },
+
+    GetSpecificRecipe({ commit,state }) {
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/getQualityGuardRecipeById/${state.currentIdRecipe}`
+      })
+        .then((response) => {
+          console.log(response.data)
+          commit('change_currentRecipe', response.data)
+        });
+    }
+  },
   modules: {},
 });

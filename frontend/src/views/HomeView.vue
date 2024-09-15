@@ -11,7 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { watch } from 'vue'
+import router from '@/router';
 
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
@@ -31,7 +31,9 @@ export default {
   },
   watch:{
     selected(){
-      console.log("hello")
+      this.$store.commit("change_currentIdRecipe", this.selected[0].id)
+      this.$store.dispatch("GetSpecificRecipe")
+      router.push("/ingredients")
     }
   },
   methods: {
