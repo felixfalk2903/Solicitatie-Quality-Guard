@@ -43,7 +43,8 @@ export default createStore({
     },],
     currentIdRecipe: 0,
     currentRecipe: {},
-    allergensPerRecipe: []
+    allergensPerRecipe: [],
+    allergens: [],
   },
   getters: {
     recipes(state) {
@@ -58,6 +59,9 @@ export default createStore({
     },
     allergensPerRecipe(state){
       return state.currentIdRecipe
+    },
+    allergens(state){
+      return state.allergens
     }
   },
   mutations: {
@@ -72,6 +76,9 @@ export default createStore({
     },
     change_allergensPerRecipe(state,payload){
       state.allergensPerRecipe = payload
+    },
+    change_allergens(state,payload){
+      state.allergens = payload
     }
   },
   actions: {
@@ -81,7 +88,7 @@ export default createStore({
         url: 'http://localhost:3000/getQualityGuardRecipes'
       })
         .then((response) => {
-          console.log(response.data)
+          // console.log(response.data)
           commit('change_recipes', response.data)
         });
     },
@@ -95,17 +102,15 @@ export default createStore({
           commit('change_currentRecipe', response.data)
         });
     },
-    //No right where provided to retrive allergen information
-    GetAlergensForRecipe({ state }) {
-      state.currentRecipe.retailproducts.forEach(element => {
+    GetAlergensForRecipe({ commit,state }) {
         axios({
           method: 'get',
-          url: `http://localhost:3000/getQualityGuardAllergensById/${element.retailProduct.id}`
+          url: `http://localhost:3000/getQualityGuardAllergensById/${state.currentIdRecipe}`
         })
           .then((response) => {
             console.log(response.data)
+            commit("change_allergens",response.data.allergens)
           });
-      });
       
     },
   },

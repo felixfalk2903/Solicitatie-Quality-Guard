@@ -30,8 +30,7 @@ export default {
     selected(){
       this.$store.commit("change_currentIdRecipe", this.selected[0].id)
       this.$store.dispatch("GetSpecificRecipe")
-      //No right where provided to retrive allergen information
-      // this.$store.dispatch("GetAlergensForRecipe")
+      this.$store.dispatch("GetAlergensForRecipe")
       router.push("/ingredients")
     }
   },

@@ -34,12 +34,12 @@ class qualityGuardAPI {
         })
     }
     //No right where provided to retrive allergen information
-    GetAlergies(retailProductId){
+    GetAlergies(recipeId){
         return new Promise((resolve,reject)=>{
             axios({
                 method: 'get',
-                url: this.baseApiEndpoint + `/api/RecipeInfo/retailproducts/${retailProductId}/allergens`,
-                headers: { "Qguard-API-Key": this.key },
+                url: this.baseApiEndpoint + `/api/RecipeInfo/${this.contractId}/recipes/${recipeId}?showImage=true`,
+                headers: { "Qguard-API-Key": this.key, "accept": "*/*" },
             }).then(function (response) {
                 resolve(response.data) 
             }).catch((err)=>{

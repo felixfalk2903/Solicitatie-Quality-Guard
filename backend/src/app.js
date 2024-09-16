@@ -23,9 +23,8 @@ app.get('/getQualityGuardRecipeById/:recipeId', async (req, res) => {
     res.send(data)
 })
 
-//No right where provided to retrive allergen information
-app.get('/getQualityGuardAllergensById/:AllergenId', async (req, res) => {
-    let data = await QualityGuardAPI.GetIngredients(req.params.AllergenId)
+app.get('/getQualityGuardAllergensById/:recipeId', async (req, res) => {
+    let data = await QualityGuardAPI.GetAlergies(req.params.recipeId)
     res.send(data)
 })
 
